@@ -1,0 +1,9 @@
+version: "3"
+
+dotenv: [".env"]
+
+tasks:
+  run:
+    desc: Run service
+    cmds:
+      - go run ./cmd/main.go --config ./configs/local.yaml

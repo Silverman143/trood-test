@@ -1,0 +1,12 @@
+# Mac
+.DS_Store
+**/.DS_Store
+._.DS_Store
+**/._.DS_Store 
+
+# ENV
+.env
+*.env
+
+# Configs
+config/*
