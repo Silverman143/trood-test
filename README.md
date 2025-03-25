@@ -48,34 +48,34 @@
 
 ```mermaid
 flowchart TB
-    subgraph Клиент
+    subgraph "Клиент"
         Client["Пользователь"]
     end
-    subgraph Фронтенд
+    subgraph "Фронтенд"
         ChatInterface["Интерфейс чата"]
     end
-    subgraph Сервисы
+    subgraph "Сервисы"
         ChatService["Сервис чата"]
-        AIProcessor["Сервис AI-процессинга"]
-        AIModel["Сервис AI-модели"]
+        AIProcessor["Сервис AI-процессинга вопросов"]
+        AIModel["Сервис AI модели"]
     end
     subgraph "Хранилища данных"
-        VectorDB["Векторная БД"]
+        VectorDB[("Векторная БД")]
     end
-    subgraph Брокер
-        KafkaQ["Kafka"]
+    subgraph "Брокер"
+        KafkaQ[("Kafka")]
     end
-
-    Client -- "1. Задает вопрос" --> ChatInterface
-    ChatInterface -- "2. Отправляет запрос" --> ChatService
-    ChatService -- "3. Обрабатывает чат" --> AIProcessor
-    AIProcessor -- "4. Генерирует эмбеддинги" --> AIModel
-    AIProcessor -- "5. Поиск контекста" --> VectorDB
-    AIProcessor -- "6b. Отправляет событие UnknownQuestionEvent" --> KafkaQ
-    AIProcessor -- "6a. Генерация ответа" --> AIModel
-    KafkaQ -- "7. Передает UnknownQuestionEvent" --> ChatService
-    AIProcessor -- "8. Возвращает ответ" --> ChatService
-    ChatService -- "9a. Маршрутизирует к оператору" --> ChatInterface
-    ChatService -- "9b. Возвращает AI-ответ" --> ChatInterface
-    ChatInterface -- "10. Показывает ответ" --> Client
+    
+    Client -- "С1: Задает вопрос" --> ChatInterface
+    ChatInterface -- "С2: Отправляет запрос" --> ChatService
+    ChatService -- "С3: Обрабатывает чат" --> AIProcessor
+    AIProcessor -- "С4: Генерирует эмбеддинги" --> AIModel
+    AIProcessor -- "С5: Поиск контекста" --> VectorDB
+    AIProcessor -- "С6b: Отправляет событие UnknownQuestionEvent" --> KafkaQ
+    AIProcessor -- "С6a: Генерация ответа" --> AIModel
+    KafkaQ -- "С7: Передает UnknownQuestionEvent" --> ChatService
+    AIProcessor -- "С8: Возвращает ответ" --> ChatService
+    ChatService -- "С9a: Маршрутизирует к оператору" --> ChatInterface
+    ChatService -- "С9b: Возвращает AI-ответ" --> ChatInterface
+    ChatInterface -- "С10: Показывает ответ" --> Client
 ```
