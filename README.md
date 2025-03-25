@@ -66,16 +66,16 @@ flowchart TB
         KafkaQ["Kafka"]
     end
 
-    Client -->|1. Вопрос| ChatInterface
-    ChatInterface -->|2. Запрос| ChatService
-    ChatService -->|3. Обработка чата| AIProcessor
-    AIProcessor -->|4. Генерация эмбеддингов| AIModel
-    AIProcessor -->|5. Поиск контекста| VectorDB
+    Client -- "1. Задает вопрос" --> ChatInterface
+    ChatInterface -- "2. Отправляет запрос" --> ChatService
+    ChatService -- "3. Обрабатывает чат" --> AIProcessor
+    AIProcessor -- "4. Генерирует эмбеддинги" --> AIModel
+    AIProcessor -- "5. Поиск контекста" --> VectorDB
+    AIProcessor -- "6b. Отправляет событие UnknownQuestionEvent" --> KafkaQ
     AIProcessor -- "6a. Генерация ответа" --> AIModel
-    AIProcessor -- "6b. Отправка UnknownQuestionEvent" --> KafkaQ
-    KafkaQ -->|7. Передача UnknownQuestionEvent| ChatService
-    AIProcessor -->|8. Возвращение ответа| ChatService
-    ChatService -- "9a. Маршрутизация к оператору" --> ChatInterface
-    ChatService -- "9b. Отправка AI-ответа" --> ChatInterface
-    ChatInterface -->|10. Отображение ответа| Client
+    KafkaQ -- "7. Передает UnknownQuestionEvent" --> ChatService
+    AIProcessor -- "8. Возвращает ответ" --> ChatService
+    ChatService -- "9a. Маршрутизирует к оператору" --> ChatInterface
+    ChatService -- "9b. Возвращает AI-ответ" --> ChatInterface
+    ChatInterface -- "10. Показывает ответ" --> Client
 ```
